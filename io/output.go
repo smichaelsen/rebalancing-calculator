@@ -18,7 +18,6 @@ func RenderTable(calculatorInstance *calculator.InvestmentCalculator, printableR
 	overallTotalInvestment := 0.0
 
 	for _, category := range printableResults {
-		fmt.Printf("category target allocation: %v", category.Target)
 		totalInvestmentAfter := category.Current + category.Investment
 		table.Append([]string{
 			category.Name,
