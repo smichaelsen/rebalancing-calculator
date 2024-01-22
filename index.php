@@ -2,6 +2,7 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
+use Smic\Rebalancing\Category;
 use Smic\Rebalancing\InvestmentCalculator;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,12 +34,13 @@ class InvestmentCalculatorCommand extends Command
             $targetAllocationQuestion = new Question('Enter target allocation in % for ' . $categoryName . ': ');
             $targetAllocation = str_replace(',', '.', $helper->ask($input, $output, $targetAllocationQuestion));
 
-            $calculator->addCategory($categoryName, $currentInvestment, $targetAllocation);
+            $category = new Category($categoryName, (float)$currentInvestment, (float)$targetAllocation);
+            $calculator->addCategory($category);
         }
 
         $amountToInvestQuestion = new Question('Enter amount to invest: ');
-        $amountToInvest = $helper->ask($input, $output, $amountToInvestQuestion);
-        $calculator->setAmountToInvest((int)$amountToInvest);
+        $amountToInvest = str_replace(',', '.', $helper->ask($input, $output, $amountToInvestQuestion));
+        $calculator->setAmountToInvest((float)$amountToInvest);
 
         $results = $calculator->calculateDistribution();
 
