@@ -21,6 +21,9 @@ php index.php app:rebalance
 * For the "amount to invest" enter the amount of money you will presumably invest until the next rebalancing (for example for one year). The resulting "Investment Percentage" will tell you how to split your monthly or one time investments between your categories.
 * You can enter all amounts with , or . as decimal separator. Don't input any thousands separators.
 * You have to make sure your target allocation adds up to 100% - the calculator will not check this.
+* If you get an unexpected opportunity to invest significantly more money (lucky you!) just do another rebalancing to decide how to allocate the additional money.
 * It should be obvious, but given that any software can and probably will contain bugs: Use this calculator at your own risk. I am not responsible for any losses you might incur by using this calculator.
 
 ![Example](./example.png)
+
+If you find this helpful, consider allocating a few bucks to [Unicef](https://www.unicef.org/).
