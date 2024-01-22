@@ -9,13 +9,6 @@ After a year of investment the allocation in your portfolio will differ from you
 
 This calculator will never advise to **remove** money from a category - because selling assets often results in transaction costs and taxes. Instead it will advise you how to **add** money in the future to achieve or approach your desired allocation.
 
-## Use
-
-```
-composer install
-php index.php app:rebalance
-```
-
 ## Remarks
 
 * For the "amount to invest" enter the amount of money you will presumably invest until the next rebalancing (for example for one year). The resulting "Investment Percentage" will tell you how to split your monthly or one time investments between your categories.
