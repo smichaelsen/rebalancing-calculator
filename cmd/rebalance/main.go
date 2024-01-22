@@ -9,6 +9,9 @@ import (
 func main() {
 	calculatorInstance := calculator.NewInvestmentCalculator()
 
+    fmt.Println("Rebalancing Calculator")
+    fmt.Println("")
+
 	io.InputCategories(calculatorInstance)
 	if len(calculatorInstance.Categories) < 2 {
 		fmt.Println("Enter at least 2 categories to start the calculation.")
@@ -21,5 +24,6 @@ func main() {
 		return
 	}
 
+    fmt.Println("")
 	io.RenderTable(calculatorInstance, calculatorInstance.CalculateAllocation())
 }

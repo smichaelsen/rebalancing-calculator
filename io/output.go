@@ -12,7 +12,7 @@ import (
 
 func RenderTable(calculatorInstance *calculator.InvestmentCalculator, printableResults []structs.Category) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Category", "Target Allocation (%)", "Amount Before", "Amount Added", "Total Investment After", "Achieved Allocation (%)", "Investment Percentage (%)"})
+	table.SetHeader([]string{"Category", "Target Allocation", "Amount Before", "Amount Added", "Total Investment After", "Achieved Allocation", "Investment Percentage"})
 
 	overallTotalBefore := 0.0
 	overallTotalInvestment := 0.0
@@ -21,24 +21,24 @@ func RenderTable(calculatorInstance *calculator.InvestmentCalculator, printableR
 		totalInvestmentAfter := category.Current + category.Investment
 		table.Append([]string{
 			category.Name,
-			formatFloat(category.Target, 2),
+			fmt.Sprintf("%s%%", formatFloat(category.Target, 2)),
 			formatFloat(category.Current, 2),
 			formatFloat(category.Investment, 2),
 			formatFloat(totalInvestmentAfter, 2),
-			formatFloat(category.AchievedAllocation, 2),
-			formatFloat((category.Investment/calculatorInstance.AmountToInvest)*100, 2),
+			fmt.Sprintf("%s%%", formatFloat(category.AchievedAllocation, 2)),
+			fmt.Sprintf("%s%%", formatFloat((category.Investment/calculatorInstance.AmountToInvest)*100, 2)),
 		})
 		overallTotalBefore += category.Current
 		overallTotalInvestment += totalInvestmentAfter
 	}
 	table.SetFooter([]string{
 		fmt.Sprintf("%d categories", len(printableResults)),
-		formatFloat(100.0, 2),
+		fmt.Sprintf("%s%%", formatFloat(100.0, 2)),
 		formatFloat(overallTotalBefore, 2),
 		formatFloat(calculatorInstance.AmountToInvest, 2),
 		formatFloat(overallTotalInvestment, 2),
-		formatFloat(100.0, 2),
-		formatFloat(100.0, 2),
+		fmt.Sprintf("%s%%", formatFloat(100.0, 2)),
+		fmt.Sprintf("%s%%", formatFloat(100.0, 2)),
 	})
 	table.Render()
 }
