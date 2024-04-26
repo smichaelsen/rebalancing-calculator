@@ -16,9 +16,12 @@ func NewInvestmentCalculator() *InvestmentCalculator {
     }
 }
 
-// AddCategory adds a new category to the calculator
 func (ic *InvestmentCalculator) AddCategory(category structs.Category) {
     ic.Categories = append(ic.Categories, category)
+}
+
+func (ic *InvestmentCalculator) GetCategories() []structs.Category {
+    return ic.Categories
 }
 
 // SetAmountToInvest sets the amount to invest

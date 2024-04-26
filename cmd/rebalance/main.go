@@ -18,6 +18,8 @@ func main() {
         return
     }
 
+    io.InputHoldings(calculatorInstance)
+
     io.InputAmountToInvest(calculatorInstance)
     if calculatorInstance.AmountToInvest < 0.01 {
         fmt.Println("Enter at least an amount of 0.01 to start the calculation.")

@@ -22,16 +22,6 @@ func InputCategories(calculatorInstance *calculator.InvestmentCalculator) {
             break
         }
 
-        fmt.Printf("Enter amount already invested in %s: ", categoryName)
-        scanner.Scan()
-        currentInvestmentStr := strings.TrimSpace(scanner.Text())
-        currentInvestmentStr = strings.Replace(currentInvestmentStr, ",", ".", -1)
-        currentInvestment, err := strconv.ParseFloat(currentInvestmentStr, 64)
-        if err != nil {
-            fmt.Println("Invalid input. Please enter a valid number.")
-            continue
-        }
-
         fmt.Printf("Enter target allocation in %% for %s: ", categoryName)
         scanner.Scan()
         targetAllocationStr := strings.TrimSpace(scanner.Text())
@@ -43,7 +33,7 @@ func InputCategories(calculatorInstance *calculator.InvestmentCalculator) {
         }
 
         var category = structs.Category{
-            Current:    currentInvestment,
+            Current:    0,
             Name:       categoryName,
             Target:     targetAllocation,
             Locked:     false, // Default value, it will be calculated later
@@ -51,6 +41,26 @@ func InputCategories(calculatorInstance *calculator.InvestmentCalculator) {
         }
 
         calculatorInstance.AddCategory(category)
+    }
+}
+
+func InputHoldings(calculatorInstance *calculator.InvestmentCalculator) {
+    scanner := bufio.NewScanner(os.Stdin)
+
+    categories := calculatorInstance.GetCategories()
+
+    for i := range categories {
+        fmt.Printf("Enter current value for %s: ", categories[i].Name)
+        scanner.Scan()
+        currentValueStr := strings.TrimSpace(scanner.Text())
+        currentValueStr = strings.Replace(currentValueStr, ",", ".", -1)
+        currentValue, err := strconv.ParseFloat(currentValueStr, 64)
+        if err != nil {
+            fmt.Println("Invalid input. Please enter a valid number.")
+            continue
+        }
+
+        calculatorInstance.Categories[i].Current = currentValue
     }
 }
 
