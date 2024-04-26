@@ -2,12 +2,30 @@
 
 Where to put your investments to reach your desired asset allocation?
 
-## Intended use
+## Intended use case
 
 This calculator is intended to help you allocate investments according to your desired asset allocation. It assumes you do the rebalancing from time to time, e.g. once per year.
 After a year of investment the allocation in your portfolio will differ from your desired allocation. That is because the assets will have performed differently. Also you might have changed your opinion about the desired allocation.
 
 This calculator will never advise to **remove** money from a category - because selling assets often results in transaction costs and taxes. Instead it will advise you how to **add** money in the future to achieve or approach your desired allocation.
+
+## Usage
+
+### Interactive
+
+```bash
+rebalance
+```
+
+The program will ask for your inputs interactively.
+
+### With command line arguments for categories
+
+```bash
+rebalance --category "World;80" --category "Europe;10" --category "EM;10"
+```
+
+The program will only ask for your holdings and the amount to invest.
 
 ## Remarks
 

@@ -73,3 +73,31 @@ func InputAmountToInvest(calculatorInstance *calculator.InvestmentCalculator) {
     amountToInvestFloat, _ := strconv.ParseFloat(amountToInvestString, 64)
     calculatorInstance.SetAmountToInvest(amountToInvestFloat)
 }
+
+func ParseCategoryFromFlag(calculatorInstance *calculator.InvestmentCalculator, categoryFlag string) {
+    categoryParts := strings.Split(categoryFlag, ";")
+
+    if len(categoryParts) != 2 {
+        fmt.Println("Invalid format for category:", categoryFlag)
+        return
+    }
+
+    categoryName := categoryParts[0]
+    targetAllocationStr := categoryParts[1]
+
+    targetAllocation, err := strconv.ParseFloat(targetAllocationStr, 64)
+    if err != nil {
+        fmt.Println("Invalid target allocation for category:", categoryName)
+        return
+    }
+
+    // Create a new category and add it to the calculator
+    category := structs.Category{
+        Name:       categoryName,
+        Target:     targetAllocation,
+        Current:    0, // Set default value for current investment
+        Locked:     false,
+        Investment: 0,
+    }
+    calculatorInstance.AddCategory(category)
+}
