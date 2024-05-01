@@ -29,7 +29,8 @@ The program will only ask for your holdings and the amount to invest.
 
 ## Remarks
 
-* For the "amount to invest" enter the amount of money you will presumably invest until the next rebalancing (for example for one year). The resulting "Investment Percentage" will tell you how to split your monthly or one time investments between your categories.
+* For the "amount to invest" enter the amount of money you will presumably invest until the next rebalancing (for example for one year).
+* You can also use the calculator before _every_ investment to determine how to allocate the money - that's how I do it.
 * You can enter all amounts with , or . as decimal separator. Don't input any thousands separators.
 * You have to make sure your target allocation adds up to 100% - the calculator will not check this.
 * If you get an unexpected opportunity to invest significantly more money (lucky you!) just do another rebalancing to decide how to allocate the additional money.
