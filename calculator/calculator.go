@@ -1,6 +1,7 @@
 package calculator
 
 import (
+    "math"
     "github.com/smichaelsen/rebalancing-calculator/structs"
 )
 
@@ -55,13 +56,18 @@ func (ic *InvestmentCalculator) CalculateAllocation() []structs.Category {
     adjustedRemainingInvestment := totalFutureInvestment - lockedInvestment
 
     // Second pass: Calculate the amount to be added for each category
+    sum := 0.0
     for i, category := range ic.Categories {
         if category.Locked {
             continue
         }
         adjustedTarget := category.Target / adjustedTotalTargetPercentage
-        ic.Categories[i].Investment = adjustedRemainingInvestment*adjustedTarget - category.Current
+        ic.Categories[i].Investment = roundFloat(adjustedRemainingInvestment * adjustedTarget - category.Current, 2)
+        sum += ic.Categories[i].Investment
     }
+
+    // Third pass: Adjust the last category to make the sum of investments equal to the total amount to invest
+    ic.Categories[len(ic.Categories)-1].Investment += ic.AmountToInvest - sum
 
     // set achieved allocation
     for i, category := range ic.Categories {
@@ -69,4 +75,9 @@ func (ic *InvestmentCalculator) CalculateAllocation() []structs.Category {
     }
 
     return ic.Categories
+}
+
+func roundFloat(val float64, precision uint) float64 {
+    ratio := math.Pow(10, float64(precision))
+    return math.Round(val*ratio) / ratio
 }
