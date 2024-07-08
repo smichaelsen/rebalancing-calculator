@@ -22,7 +22,7 @@ The program will ask for your inputs interactively.
 ### With command line arguments for categories
 
 ```bash
-rebalance --category "World;80" --category "Europe;10" --category "EM;10"
+rebalance --category "Developed Marktes;80" --category "Europe;10" --category "Emerging Markets;10"
 ```
 
 The program will only ask for your holdings and the amount to invest.
