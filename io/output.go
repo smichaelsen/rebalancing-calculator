@@ -12,23 +12,35 @@ import (
 
 func RenderTable(calculatorInstance *calculator.InvestmentCalculator, printableResults []structs.Category) {
     table := tablewriter.NewWriter(os.Stdout)
-    table.SetHeader([]string{"Category", "Target Allocation", "Amount Before", "Amount Added", "Amount After", "Achieved Allocation"})
+    table.SetHeader([]string{"Category", "Allocation Before", "Amount Before", "Added", "Amount After", "Achieved Allocation"})
+
+    table.SetColumnAlignment([]int{
+        tablewriter.ALIGN_LEFT,    // Category
+        tablewriter.ALIGN_RIGHT,   // Allocation Before
+        tablewriter.ALIGN_RIGHT,   // Amount Before
+        tablewriter.ALIGN_RIGHT,   // Amount Added
+        tablewriter.ALIGN_RIGHT,   // Amount After
+        tablewriter.ALIGN_RIGHT,   // Achieved Allocation
+    })
 
     overallTotalBefore := 0.0
     overallTotalInvestment := 0.0
 
     for _, category := range printableResults {
+        overallTotalBefore += category.Current
+        overallTotalInvestment += category.Current + category.Investment
+    }
+
+    for _, category := range printableResults {
         totalInvestmentAfter := category.Current + category.Investment
         table.Append([]string{
             category.Name,
-            fmt.Sprintf("%s%%", formatFloat(category.Target, 2)),
+            fmt.Sprintf("%s%%", formatFloat(category.Current/overallTotalBefore*100, 2)),
             formatFloat(category.Current, 2),
             formatFloat(category.Investment, 2),
             formatFloat(totalInvestmentAfter, 2),
             fmt.Sprintf("%s%%", formatFloat(category.AchievedAllocation, 2)),
         })
-        overallTotalBefore += category.Current
-        overallTotalInvestment += totalInvestmentAfter
     }
     table.SetFooter([]string{
         fmt.Sprintf("%d categories", len(printableResults)),
